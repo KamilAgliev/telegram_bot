@@ -1,7 +1,6 @@
 from random import randint as Ra
 import time
 
-import updater as updater
 from telegram import ReplyKeyboardMarkup
 
 from data import TOKEN
@@ -48,7 +47,12 @@ def task(context):
     global curr_time
     res = str(curr_time) + " секунд истекло"
     job = context.job
-    context.bot.send_message(job.context, text=res)
+    reply_keyboard = [["30 секунд"],
+                      ["1 минута"],
+                      ["5 минут"],
+                      ["вернуться назад"]]
+    markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=False)
+    context.bot.send_message(job.context, text=res, reply_markup=markup)
 
 
 def unset_timer(update, context):
